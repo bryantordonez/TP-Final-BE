@@ -232,7 +232,7 @@ Esta API permite gestionar transacciones de consumos en una tarjeta, como creaci
 
 ### **3. Actualizar Transacción**
 
-**Endpoint:** `./updateTransaction`  
+**Endpoint:** `./api/updateTransaction`  
 **Método:** `PUT`  
 
 **Request:**  
