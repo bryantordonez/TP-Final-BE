@@ -1,6 +1,6 @@
-# Documentación de la API de Gestión de Transacciones
+# Documentación de la API de registro de Transacciones
 
-Esta API permite gestionar transacciones como creación, consulta, actualización y eliminación. Implementa un sistema de autenticación basado en usuario y contraseña. 
+Esta API permite gestionar transacciones de consumos en una tarjeta, como creación, consulta, actualización y eliminación de transacciones. Implementa un sistema de autenticación basado en usuario y contraseña.
 
 ## **Endpoints**
 
@@ -177,7 +177,33 @@ Esta API permite gestionar transacciones como creación, consulta, actualizació
 
 ## **Ejemplos de Uso**
 
-### **1. Agregar Transacción**
+### **1. Registro de Usuario**
+
+**Endpoint:** `./api/auth/register`  
+**Método:** `POST`  
+
+**Request:**  
+```json
+{
+  "username": "139265.manager",
+  "password": "sKfYgf37D",
+  "email": "139265.manager@bank.com"
+}
+```
+**Respuesta esperada:**  
+```json
+{
+  "username": "139265.manager",
+  "password": "$2a$10$fpyMxHBpxasjbJWG8SqUsegIr9LfJosR6A8RIUIpoDm.7w3ym3em2",
+  "email": "139265.manager@bank.com",
+  "_id": "67555e0301210a68b3ff454c"
+}
+```
+
+---
+
+
+### **2. Agregar Transacción**
 
 **Endpoint:** `./api/addTransaction`  
 **Método:** `POST`  
@@ -204,7 +230,7 @@ Esta API permite gestionar transacciones como creación, consulta, actualizació
 
 ---
 
-### **2. Actualizar Transacción**
+### **3. Actualizar Transacción**
 
 **Endpoint:** `./updateTransaction`  
 **Método:** `PUT`  
