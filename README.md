@@ -1,8 +1,8 @@
 # Documentación de la API de Gestión de Transacciones
 
-Esta API permite gestionar transacciones, incluyendo la creación, consulta, actualización y eliminación de las mismas. Además, implementa un sistema de autenticación basado en usuario y contraseña. 
+Esta API permite gestionar transacciones como creación, consulta, actualización y eliminación. Implementa un sistema de autenticación basado en usuario y contraseña. 
 
-## **Endpoints Disponibles**
+## **Endpoints**
 
 ### **1. Autenticación**
 
@@ -63,7 +63,7 @@ Esta API permite gestionar transacciones, incluyendo la creación, consulta, act
 
 #### **Crear una Nueva Transacción**
 
-**URL:** `/api/addTransactions`  
+**URL:** `/api/addTransaction`  
 **Método:** `POST`  
 **Descripción:** Crea una nueva transacción.  
 **Cuerpo de la Solicitud (JSON):**
@@ -85,7 +85,7 @@ Esta API permite gestionar transacciones, incluyendo la creación, consulta, act
 
 #### **Actualizar una Transacción**
 
-**URL:** `/api/updateTransactions/:id`  
+**URL:** `/api/updateTransaction/:id`  
 **Método:** `PUT`  
 **Descripción:** Actualiza una transacción existente.  
 **Parámetros de URL:**
