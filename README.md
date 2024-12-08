@@ -16,7 +16,8 @@ Esta API permite gestionar transacciones de consumos en una tarjeta, como creaci
 ```json
 {
   "username": "string",
-  "password": "string"
+  "password": "string",
+  "email": "string"
 }
 ```
 
