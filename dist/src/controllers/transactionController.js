@@ -17,11 +17,16 @@ const TransactionModel_1 = __importDefault(require("../models/TransactionModel")
 const transactionSchema_1 = require("./joi/transactionSchema");
 const getAllTransactions = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const transaction = yield TransactionModel_1.default.getAllTransactions();
-        res.json(transaction);
+        const transactions = yield TransactionModel_1.default.getAllTransactions();
+        res.json(transactions);
     }
     catch (error) {
-        res.status(500).json({ status: 500, error: error.message });
+        if (error instanceof Error) {
+            res.status(500).json({ status: 500, error: error.message });
+        }
+        else {
+            res.status(500).json({ status: 500, error: "Unknown error occurred" });
+        }
     }
 });
 exports.getAllTransactions = getAllTransactions;
@@ -30,7 +35,8 @@ const addTransaction = (req, res) => __awaiter(void 0, void 0, void 0, function*
     const { error } = transactionSchema_1.transactionSchema.validate({ mount, store, date, status });
     if (error) {
         console.log('/addTransaction: transactionSchema error:', error.details[0].message);
-        return res.status(400).json({ error: error.details[0].message });
+        res.status(400).json({ error: error.details[0].message });
+        return;
     }
     const transaction = { mount, store, date, status };
     try {
@@ -38,7 +44,13 @@ const addTransaction = (req, res) => __awaiter(void 0, void 0, void 0, function*
         res.status(201).json(newTransaction);
     }
     catch (error) {
-        res.status(500).json({ status: 500, error: error.message });
+        if (error instanceof Error) {
+            console.error("transactionController: addTransaction: error:", error);
+            res.status(500).json({ status: 500, error: "Internal server error" });
+        }
+        else {
+            res.status(500).json({ status: 500, error: "Unknown error occurred" });
+        }
     }
 });
 exports.addTransaction = addTransaction;
@@ -49,30 +61,48 @@ const updateTransaction = (req, res) => __awaiter(void 0, void 0, void 0, functi
         const { error } = transactionSchema_1.transactionSchema.validate({ mount, store, date, status });
         if (error) {
             console.log('/updateTransaction: transactionSchema error:', error.details[0].message);
-            return res.status(400).json({ error: error.details[0].message });
+            res.status(400).json({ error: error.details[0].message });
+            return;
         }
         const transactionUpdated = yield TransactionModel_1.default.updateTransaction(id, { mount, store, date, status });
         if (transactionUpdated) {
             console.log('/updateTransaction: transaction updated successfully');
             res.status(200).json(transactionUpdated);
         }
+        else {
+            res.status(404).json({ status: 404, error: "Transaction not found" });
+        }
     }
     catch (error) {
-        res.status(500).json({ status: 500, error: error.message });
+        if (error instanceof Error) {
+            console.error("/transactionController: updateTransaction: error:", error);
+            res.status(500).json({ status: 500, error: "Internal server error" });
+        }
+        else {
+            res.status(500).json({ status: 500, error: "Unknown error occurred" });
+        }
     }
 });
 exports.updateTransaction = updateTransaction;
 const deleteTransaction = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
     try {
-        const { id } = req.params;
         const transactionDeleted = yield TransactionModel_1.default.deleteTransaction(id);
         if (transactionDeleted) {
             console.log('/deleteTransaction: transaction deleted successfully');
             res.status(200).json(transactionDeleted);
         }
+        else {
+            res.status(404).json({ status: 404, error: "Transaction not found" });
+        }
     }
     catch (error) {
-        res.status(500).json({ status: 500, error: error.message });
+        if (error instanceof Error) {
+            res.status(500).json({ status: 500, error: error.message });
+        }
+        else {
+            res.status(500).json({ status: 500, error: "Unknown error occurred" });
+        }
     }
 });
 exports.deleteTransaction = deleteTransaction;

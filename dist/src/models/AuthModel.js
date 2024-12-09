@@ -26,10 +26,16 @@ const register = (username, password, email) => __awaiter(void 0, void 0, void 0
             password: yield bcryptjs_1.default.hash(password, 10),
             email
         });
-        return newUser;
+        return {
+            id: newUser._id,
+            username: newUser.username,
+            email: newUser.email,
+        };
     }
-    catch (err) { //review any
-        console.log("AuthModel: register: Error: ", err.message);
+    catch (err) {
+        if (err instanceof Error) {
+            console.error("AuthModel: register: Error:", err.message);
+        }
         throw new Error("Internal server error");
     }
 });
@@ -43,8 +49,10 @@ const login = (username, password) => __awaiter(void 0, void 0, void 0, function
         console.log("token created successfully");
         return token;
     }
-    catch (err) { //review any
-        console.log("AuthModel: login: Error: ", err.message);
+    catch (err) {
+        if (err instanceof Error) {
+            console.error("AuthModel: login: Error:", err.message);
+        }
         throw new Error("Internal server error");
     }
 });

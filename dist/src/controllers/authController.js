@@ -21,14 +21,20 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { error } = userSchema_1.userCreateSchema.validate({ username, password, email });
         if (error) {
             console.log('/register: userCreateSchema error:', error.details[0].message);
-            return res.status(400).json({ error: error.details[0].message });
+            res.status(400).json({ error: error.details[0].message });
+            return;
         }
         const newUser = yield AuthModel_1.default.register(username, password, email);
-        res.json(newUser);
+        if (newUser) {
+            console.log("authController: register: new user created successfully");
+            res.status(201).json(newUser);
+            return;
+        }
+        res.status(201).json(newUser);
     }
-    catch (error) {
-        console.log('Internal server error:', error.message);
-        res.status(500).json({ error: error.message });
+    catch (err) {
+        console.error("authController: register: error:", err);
+        res.status(500).json({ error: "Internal server error" });
     }
 });
 exports.register = register;
@@ -38,13 +44,15 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { error } = userSchema_1.userLoginSchema.validate({ username, password });
         if (error) {
             console.log('/login: userLoginSchema error:', error.details[0].message);
-            return res.status(400).json({ error: error.details[0].message });
+            res.status(400).json({ error: error.details[0].message });
+            return;
         }
         const token = yield AuthModel_1.default.login(username, password);
-        res.json({ token });
+        res.status(200).json({ token });
     }
-    catch (error) {
-        res.status(401).json({ status: 401, error: error.message });
+    catch (err) {
+        console.error("authController: login: error:", err);
+        res.status(500).json({ error: "Internal server error" });
     }
 });
 exports.login = login;
