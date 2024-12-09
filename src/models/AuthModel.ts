@@ -32,7 +32,11 @@ const register = async (username: string, password: string, email: string) => {
 const login = async (username: string, password: string) => {
   try {
     const user = await User.findOne({ username });
-    if (!user || !(await bcryptjs.compare(password, user.password))) {
+    if (!user) {
+      throw new Error("User not found");
+    }
+  
+    if (!user.password || !(await bcryptjs.compare(password, user.password))) {
       throw new Error("Incorrect username or password");
     }
 

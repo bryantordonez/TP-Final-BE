@@ -31,14 +31,14 @@ const getAllTransactions = (req, res) => __awaiter(void 0, void 0, void 0, funct
 });
 exports.getAllTransactions = getAllTransactions;
 const addTransaction = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { mount, store, date, status } = req.body;
-    const { error } = transactionSchema_1.transactionSchema.validate({ mount, store, date, status });
+    const { mount, merchant, date, status } = req.body;
+    const { error } = transactionSchema_1.transactionSchema.validate({ mount, merchant, date, status });
     if (error) {
         console.log('/addTransaction: transactionSchema error:', error.details[0].message);
         res.status(400).json({ error: error.details[0].message });
         return;
     }
-    const transaction = { mount, store, date, status };
+    const transaction = { mount, merchant, date, status };
     try {
         const newTransaction = yield TransactionModel_1.default.addTransaction(transaction);
         res.status(201).json(newTransaction);
@@ -57,14 +57,14 @@ exports.addTransaction = addTransaction;
 const updateTransaction = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;
-        const { mount, store, date, status } = req.body;
-        const { error } = transactionSchema_1.transactionSchema.validate({ mount, store, date, status });
+        const { mount, merchant, date, status } = req.body;
+        const { error } = transactionSchema_1.transactionSchema.validate({ mount, merchant, date, status });
         if (error) {
             console.log('/updateTransaction: transactionSchema error:', error.details[0].message);
             res.status(400).json({ error: error.details[0].message });
             return;
         }
-        const transactionUpdated = yield TransactionModel_1.default.updateTransaction(id, { mount, store, date, status });
+        const transactionUpdated = yield TransactionModel_1.default.updateTransaction(id, { mount, merchant, date, status });
         if (transactionUpdated) {
             console.log('/updateTransaction: transaction updated successfully');
             res.status(200).json(transactionUpdated);

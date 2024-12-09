@@ -6,7 +6,7 @@ const transactionSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  store: {
+  merchant: {
     type: String,
     required: true,
     maxlength: 50,

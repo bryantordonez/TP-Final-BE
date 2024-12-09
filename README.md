@@ -72,7 +72,7 @@ Esta API permite gestionar transacciones de consumos en una tarjeta, como creaci
 ```json
 {
   "amount": "number",
-  "store": "string",
+  "merchant": "string",
   "date": "string (YYYY-MM-DD)",
   "status": "string" //opcional
 }
@@ -98,7 +98,7 @@ Esta API permite gestionar transacciones de consumos en una tarjeta, como creaci
 ```json
 {
   "amount": "number",
-  "store": "string",
+  "merchant": "string",
   "date": "string (YYYY-MM-DD)",
   "status": "string"
 }
@@ -194,7 +194,7 @@ Esta API permite gestionar transacciones de consumos en una tarjeta, como creaci
 **Respuesta esperada:**  
 ```json
 {
-  "username": "139265.manager",
+  "username": "139265.manager", //no se devuelve la password por seguridad
   "email": "139265.manager@bank.com",
   "_id": "67555e0301210a68b3ff454c"
 }
@@ -212,7 +212,7 @@ Esta API permite gestionar transacciones de consumos en una tarjeta, como creaci
 ```json
 {
   "mount" : 6.00,
-  "store" : "Uber",
+  "merchant" : "Uber",
   "date": "01/12/2024 22:30"
 }
 ```
@@ -220,10 +220,10 @@ Esta API permite gestionar transacciones de consumos en una tarjeta, como creaci
 **Respuesta esperada:**  
 ```json
 {
-  "mount": 6,
-  "store": "Uber",
+  "mount": 6.00,
+  "merchant": "Uber",
   "date": "01/12/2024 22:30",
-  "status": "pending",
+  "status": "pending", //es pending por default
   "_id": "67554f1f5c8b81a4904b109b"
 }
 ```
@@ -239,9 +239,9 @@ Esta API permite gestionar transacciones de consumos en una tarjeta, como creaci
 ```json
 {
   "mount" : 6.00,
-  "store" : "Uber",
+  "merchant" : "Uber",
   "date": "01/12/2024 22:30",
-  "status": "approved"
+  "status": "approved" //cambio de estado
 }
 ```
 
@@ -249,8 +249,8 @@ Esta API permite gestionar transacciones de consumos en una tarjeta, como creaci
 ```json
 {
   "_id": "67554f1f5c8b81a4904b109b",
-  "mount": 6,
-  "store": "Uber",
+  "mount": 6.00,
+  "merchant": "Uber",
   "date": "01/12/2024 22:30",
   "status": "approved"
 }

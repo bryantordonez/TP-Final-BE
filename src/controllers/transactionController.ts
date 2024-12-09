@@ -17,16 +17,16 @@ const getAllTransactions = async (req: Request, res: Response) => {
 };
 
 const addTransaction = async (req: Request, res: Response): Promise<void> => {
-  const { mount, store, date, status } = req.body;
+  const { mount, merchant, date, status } = req.body;
 
-  const { error } = transactionSchema.validate({ mount, store, date, status });
+  const { error } = transactionSchema.validate({ mount, merchant, date, status });
   if (error) {
       console.log('/addTransaction: transactionSchema error:', error.details[0].message);
       res.status(400).json({ error: error.details[0].message });
       return;
   }
 
-  const transaction: transactionInterface = { mount, store, date, status };
+  const transaction: transactionInterface = { mount, merchant, date, status };
 
   try {
     const newTransaction = await TransactionModel.addTransaction(transaction);
@@ -44,16 +44,16 @@ const addTransaction = async (req: Request, res: Response): Promise<void> => {
 const updateTransaction = async (req: Request, res: Response) : Promise<void> => {
   try {
     const { id } = req.params;
-    const { mount, store, date, status } = req.body;
+    const { mount, merchant, date, status } = req.body;
 
-    const { error } = transactionSchema.validate({ mount, store, date, status });
+    const { error } = transactionSchema.validate({ mount, merchant, date, status });
     if (error) {
         console.log('/updateTransaction: transactionSchema error:', error.details[0].message);
         res.status(400).json({ error: error.details[0].message });
         return;
     }
 
-    const transactionUpdated = await TransactionModel.updateTransaction(id, { mount, store, date, status });
+    const transactionUpdated = await TransactionModel.updateTransaction(id, { mount, merchant, date, status });
     if (transactionUpdated) {
       console.log('/updateTransaction: transaction updated successfully');
       res.status(200).json(transactionUpdated);

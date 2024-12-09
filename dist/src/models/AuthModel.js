@@ -42,7 +42,10 @@ const register = (username, password, email) => __awaiter(void 0, void 0, void 0
 const login = (username, password) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = yield User.findOne({ username });
-        if (!user || !(yield bcryptjs_1.default.compare(password, user.password))) {
+        if (!user) {
+            throw new Error("User not found");
+        }
+        if (!user.password || !(yield bcryptjs_1.default.compare(password, user.password))) {
             throw new Error("Incorrect username or password");
         }
         const token = jsonwebtoken_1.default.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1h" });

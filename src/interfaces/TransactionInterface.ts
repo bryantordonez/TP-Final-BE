@@ -1,6 +1,6 @@
 interface transactionInterface {
     mount: number,
-    store: string,
+    merchant: string,
     date: string,
     status: string
 }

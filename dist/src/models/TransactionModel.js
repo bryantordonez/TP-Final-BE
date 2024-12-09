@@ -18,7 +18,7 @@ const transactionSchema = new mongoose_1.default.Schema({
         type: Number,
         required: true,
     },
-    store: {
+    merchant: {
         type: String,
         required: true,
         maxlength: 50,
