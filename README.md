@@ -16,7 +16,8 @@ Esta API permite gestionar transacciones de consumos en una tarjeta, como creaci
 ```json
 {
   "username": "string",
-  "password": "string"
+  "password": "string",
+  "email": "string"
 }
 ```
 
@@ -232,7 +233,7 @@ Esta API permite gestionar transacciones de consumos en una tarjeta, como creaci
 
 ### **3. Actualizar Transacción**
 
-**Endpoint:** `./updateTransaction`  
+**Endpoint:** `./api/updateTransaction`  
 **Método:** `PUT`  
 
 **Request:**  
