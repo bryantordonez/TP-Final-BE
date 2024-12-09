@@ -195,7 +195,6 @@ Esta API permite gestionar transacciones de consumos en una tarjeta, como creaci
 ```json
 {
   "username": "139265.manager",
-  "password": "$2a$10$fpyMxHBpxasjbJWG8SqUsegIr9LfJosR6A8RIUIpoDm.7w3ym3em2",
   "email": "139265.manager@bank.com",
   "_id": "67555e0301210a68b3ff454c"
 }
